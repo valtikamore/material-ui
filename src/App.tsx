@@ -6,10 +6,10 @@ import {
     Box,
     Button,
     Card, CardActions, CardContent, CardMedia,
-    Container,
+    Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     Grid,
     IconButton,
-    Paper,
+    Paper, TextField,
     Theme,
     Toolbar,
     Typography
@@ -84,6 +84,13 @@ function App() {
     const handleChange = (event:any,newValue:string) => {
         setValue(newValue)
     }
+    const [open,setOpen] = useState(false)
+    const handleClickOpen = () => {
+        setOpen(true)
+    }
+    const handleClose = () => {
+        setOpen(false)
+    }
     return (
         <>
             <AppBar position="fixed">
@@ -95,7 +102,33 @@ function App() {
                         <Typography variant={"h6"} className={classes.title}>My first experience with
                             Material-UI </Typography>
                         <Box mr={3}>
-                            <Button color={"inherit"} variant={"outlined"}>Log in </Button>
+                            <Button color={"inherit"} variant={"outlined"} onClick={handleClickOpen}>Log in </Button>
+                            <Dialog open={open} onClose={handleClose} aria-labelledby={'form-dialog-title'}>
+                                <DialogTitle id='form-dialog-title' >Log in </DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText>Log in to see</DialogContentText>
+                                    <TextField
+                                        autoFocus
+                                        margin={"dense"}
+                                        id={'name'}
+                                        label={'Email Adress'}
+                                        type={'email'}
+                                        fullWidth
+                                    />
+                                    <TextField
+                                        autoFocus
+                                        margin={"dense"}
+                                        id={'pass'}
+                                        label={'Password'}
+                                        type={'password'}
+                                        fullWidth
+                                    />
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleClose} color={"primary"} >Cancel</Button>
+                                    <Button onClick={handleClose} color={"primary"} >Log in</Button>
+                                </DialogActions>
+                            </Dialog>
                         </Box>
                         <Button color={"secondary"} variant={"contained"}>Sign up</Button>
                     </Toolbar>
